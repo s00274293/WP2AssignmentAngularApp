@@ -1,0 +1,77 @@
+:host {
+  display: block;
+}
+
+.card {
+  display: flex;
+  min-height: 12rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.9rem;
+  padding: 1.35rem;
+  border: 1px solid var(--mat-sys-outline-variant);
+  border-radius: 1rem;
+  background: var(--mat-sys-surface-container-low);
+  box-shadow: 0 2px 8px rgb(0 0 0 / 5%);
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    border-color 160ms ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  border-color: var(--mat-sys-outline);
+  box-shadow: 0 8px 20px rgb(0 0 0 / 10%);
+}
+
+.card h3 {
+  margin: 0;
+  color: var(--mat-sys-on-surface);
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.card p {
+  margin: 0;
+  color: var(--mat-sys-on-surface-variant);
+  line-height: 1.5;
+}
+
+.card a {
+  display: inline-flex;
+  min-height: 2.5rem;
+  align-items: center;
+  margin-top: auto;
+  padding-inline: 1rem;
+  border: 1px solid var(--mat-sys-primary);
+  border-radius: 999px;
+  color: var(--mat-sys-primary);
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease;
+}
+
+.card a:hover {
+  background: var(--mat-sys-primary);
+  color: var(--mat-sys-on-primary);
+}
+
+.card a:focus-visible {
+  outline: 3px solid var(--mat-sys-primary);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .card a {
+    transition: none;
+  }
+
+  .card:hover {
+    transform: none;
+  }
+}

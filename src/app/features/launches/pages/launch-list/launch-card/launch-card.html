@@ -1,0 +1,8 @@
+<div class="card">
+    <h3>{{ launch().missionName }} {{ launch().rocketName }}</h3>
+
+    @if(launch().favorite){ <p>Notes: {{ launch().notes }}</p>}
+
+    <a [routerLink]="['/launches', launch()._id]">View Notes</a>
+
+</div>

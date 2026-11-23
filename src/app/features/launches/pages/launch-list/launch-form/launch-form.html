@@ -1,0 +1,84 @@
+<form [formGroup]="launchForm" (ngSubmit)="onSubmit()" class="launch-form">
+  @if (saving()) {
+    <mat-progress-bar mode="buffer" />
+  }
+
+  <h2>Launch Details Form</h2>
+
+  <!-- Mission Name Field -->
+  <mat-form-field appearance="outline">
+  @if (launchForm.controls.missionName.hasError('required')) {
+    <mat-error>Mission name is required</mat-error>
+  } @else if (launchForm.controls.missionName.hasError('blank')) {
+    <mat-error>Mission name cannot be only spaces</mat-error>
+  } @else if (launchForm.controls.missionName.hasError('minlength')) {
+    <mat-error>Mission name must be at least 2 characters</mat-error>
+  } @else if (launchForm.controls.missionName.hasError('maxlength')) {
+    <mat-error>Mission name must be 30 characters or fewer</mat-error>
+  }
+    <mat-label>Mission Name</mat-label>
+    <input
+      matInput
+      formControlName="missionName"
+      placeholder="e.g. Starlink-15"
+    />
+  </mat-form-field>
+
+  <!-- Rocket Name Field -->
+<mat-form-field appearance="outline">
+  @if (launchForm.controls.rocketName.hasError('required')) {
+    <mat-error>Rocket name is required</mat-error>
+  } @else if (launchForm.controls.rocketName.hasError('blank')) {
+    <mat-error>Rocket name cannot be only spaces</mat-error>
+  } @else if (launchForm.controls.rocketName.hasError('minlength')) {
+    <mat-error>Rocket name must be at least 2 characters</mat-error>
+  } @else if (launchForm.controls.rocketName.hasError('maxlength')) {
+    <mat-error>Rocket name must be 30 characters or fewer</mat-error>
+  }
+    <mat-label>Rocket Name</mat-label>
+    <input
+      matInput
+      formControlName="rocketName"
+      placeholder="e.g. Falcon 9"
+    />
+  </mat-form-field>
+
+  <!-- Launch Date Field -->
+  <mat-form-field appearance="outline">
+    <mat-label>Launch Date</mat-label>
+    <input matInput type="date" formControlName="date" />
+    <mat-hint>Optional</mat-hint>
+  </mat-form-field>
+
+  <!-- Notes Field -->
+  <mat-form-field appearance="outline">
+    @if (launchForm.controls.notes.hasError('maxlength')) {
+  <mat-error>Notes must be 100 characters or fewer</mat-error>
+}
+    <mat-label>Notes</mat-label>
+    <textarea
+      matInput
+      formControlName="notes"
+      rows="4"
+      placeholder="Enter any notes about the launch"
+    ></textarea>
+    <mat-hint>Optional</mat-hint>
+  </mat-form-field>
+
+  <!-- Favourite Launch -->
+  <label>
+    <input type="checkbox" formControlName="favorite" />
+    Favourite Launch
+  </label>
+
+  <!-- Action Buttons -->
+  @if (saveError(); as message) {
+    <p role="alert">{{ message }}</p>
+  }
+  <div class="button-group">
+    <button matButton="filled" type="submit" [disabled]="saving()">
+      {{ saving() ? 'Saving...' : 'Save Launch' }}
+    </button>
+    <a matButton routerLink="/launches">Cancel</a>
+  </div>
+</form>

@@ -1,0 +1,39 @@
+<section class="details-page">
+  <h1>Launch Details</h1>
+  <p class="launch-id">Launch ID: <code>{{ id() }}</code></p>
+
+  @let s = state();
+
+  @if (s.status === 'loading') {
+    <p class="status-message">Loading launch details...</p>
+  } @else if (s.status === 'error') {
+    <p class="status-message error">{{ s.message }}</p>
+  } @else {
+    <article class="launch-card">
+      <h2>{{ s.data.missionName }}</h2>
+      <p class="rocket-name">Rocket: {{ s.data.rocketName }}</p>
+
+      @if (s.data.date) {
+        <p>Launch date: {{ s.data.date }}</p>
+      }
+      @if (s.data.notes) {
+        <p>Notes: {{ s.data.notes }}</p>
+      }
+      @if (s.data.favorite) {
+        <p class="favorite-label">Favourite launch</p>
+      }
+
+      <div class="actions">
+        <a matButton="filled" [routerLink]="['/launches', s.data._id, 'edit']">Edit</a>
+        <button type="button" (click)="deleteLaunch(s.data)" [disabled]="deleting()">
+          Delete launch
+        </button>
+      </div>
+
+      @if (deleteError(); as message) {
+        <p class="error">{{ message }}</p>
+      }
+    </article>
+  }
+</section>
+

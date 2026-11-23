@@ -1,0 +1,34 @@
+<div class="launch-list-container">
+  <header class="list-header">
+    <h2>Launch List</h2>
+    <div class="list-actions">
+      <button
+        matButton="outlined"
+        type="button"
+        [attr.aria-pressed]="showFavorites()"
+        (click)="showFavorites.update((showing) => !showing)"
+      >
+        {{ showFavorites() ? 'Show All' : 'Show Favorites' }}
+      </button>
+      <a matButton="filled" routerLink="/launches/new">Add Launch</a>
+    </div>
+  </header>
+
+  @let s = state();
+  @if (s.status === 'loading') {
+    <p>Loading launches...</p>
+  } @else if (s.status === 'error') {
+    <p> {{ s.message }}</p>
+  } @else if (visibleLaunches().length === 0) {
+    <p>
+      {{ showFavorites() ? 'No favorited launches available.' : 'No launches available at the moment.' }}
+    </p>
+  } @else {
+    <div class="grid">
+      @for (launch of visibleLaunches(); track launch._id) {
+        <app-launch-card [launch]="launch" />
+      }
+    </div>
+  }
+</div>
+
